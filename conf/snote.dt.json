@@ -1,0 +1,22 @@
+{
+  "version": "2024.08",
+  "head": {
+    "width": 30,
+    "height": 2,
+    "left": 0,
+    "top": 0
+  },
+  "main_view": {
+    "width": 30,
+    "height": 25,
+    "left": 0,
+    "top": 0
+  },
+  "welcome": "\\033[7m Synctron \\033[0m 生活辅助程序 v{version} \\n",
+  "prompt": {
+    "content": "请输入记录或命令：",
+    "left": 0,
+    "top": 0
+  },
+  "updating_interval_seconds": 5
+}
