@@ -2,6 +2,8 @@
 
 Temporarily aimed for my personal use. Try, fork and contribution is welcomed.
 
+[Debugging / testing version on gitee.com](https://gitee.com/danimeo/synctron)
+
 ---
 
 Functions to be implemented:
