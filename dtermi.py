@@ -6,11 +6,9 @@ from threading import Thread
 import time
 from itertools import zip_longest
 
-os.system('python3 -m pip install rich')
+# os.system('python3 -m pip install rich')
 from rich.console import Console
 from rich.table import Table
-
-# regex_1 = re.compile(r'\\033\[[0-9;]+[A-Za-z]')
 
 
 def displayable_str(_str: str, **values):
@@ -31,10 +29,8 @@ class DT:
         self.module: importlib.ModuleType = None
         self.updating = False
         self.updating_thread: Thread = None
-
+        
         self.console = Console()
-
-
         
     def clear_content(self):
         print('\033[{};{}H\033[K\033[1B'.format(1 + self.conf['head']['top'] + self.conf['head']['height']
@@ -67,11 +63,9 @@ class DT:
             self.conf['prompt']['content'], 
             '\033[0K',
             '\033[s',
-            # '\033[s' if initializing else '\033[u', 
             sep='', end='', flush=True
         )
 
-        
     def update(self, content=''):
         print('\033[s', end='')
 
@@ -94,11 +88,6 @@ class DT:
             if lst_2:
                 lst_2[-1] += (' ',) * (len(lst_2[0]) - len(lst_2[-1]))
                 [table_2.add_row(*s, style="white") for s in zip(*lst_2)]
-
-            # table.add_row("1", "Buy Milk", "✅")
-            # table.add_row("2", "Buy Bread", "✅")
-            # table.add_row("3", "Buy Jam", "❌")
-            
             print(
                 '\033[{};{}H'.format(1 + self.conf["head"]["top"] + self.conf['head']['height']
                                       + self.conf['main_view']['top'],
