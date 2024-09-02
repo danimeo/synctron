@@ -158,5 +158,5 @@ def create_DT(dt_filename, mod_filename=''):
 
 
 if __name__ == '__main__':
-    create_DT('conf/snote.dt.json', mod_filename='med_logger')
+    create_DT('conf/synctron.dt.json', mod_filename='med_logger')
 
