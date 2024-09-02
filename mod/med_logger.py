@@ -4,7 +4,7 @@ import datetime
 from fractions import Fraction
 
 import os
-os.system('python3 -m pip install pypinyin')
+# os.system('python3 -m pip install pypinyin')
 import pypinyin
 from vault_mgr import Vault
 
@@ -125,18 +125,6 @@ data = {
         "dir_relative_path": "logs/medicine/",
 
         "content": [
-            # {
-            #     "id": 1,
-            #     "med_id": 1,
-            #     "dose": 10,
-            #     "tablets_per_strip": 7,
-            #     "time": "2021-09-01 12:00:00",
-            #     "note": "无"
-            # },{
-            #     "id": 2,
-            #     "med_id": 2,
-            #     "dose": 10,
-            # }
         ]
   }
 }
@@ -146,7 +134,6 @@ v = Vault(**data["vault_conf"])
 
 title = '[bold white on blue] :pill: 服药记录器 [/bold white on blue] [cyan]v[i]{}[/i][/cyan]'.format(conf['version'])
 rules = '[white]命令说明：  \\[add ]<药名><单位剂量> <服用数量> <板剩余量> <片剩余量>  # 添加记录  |  :q  # 退出[/white]'
-
 
 
 def update(data: dict, conf: dict, rules: str, err_info='', med_list_mode='compact'):
