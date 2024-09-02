@@ -45,14 +45,27 @@ class Vault:
             repo_git.commit('-m', 'auto commit')
             remote.push()
         else:
-            repo = git.Repo(vault_path)
+            try:
+                repo = git.Repo(vault_path)
+            except git.exc.InvalidGitRepositoryError:
+                dot_git = os.path.join(vault_path, '.git')
+                if os.path.exists(dot_git):
+                    os.rmdir(dot_git)
+                repo = git.Repo.init(path=vault_path)
+
+            
+            repo_git = repo.git()
+            git_user(repo_git, **user_info)
+
+            
             if len(repo.remotes) == 0:
                 remote = repo.create_remote('origin', remote_path)
             else:
                 remote = repo.remote()
             
-            repo_git = repo.git()
-            git_user(repo_git, **user_info)
+            if remote.url != remote_path:
+                remote.set_url(remote_path)
+                
 
         return repo, repo_git, remote
 
@@ -69,18 +82,22 @@ class Vault:
 
         try:
             if self.remote.refs:
-                self.remote.pull()
+                self.remote.pull(force=True)
             self.repo_git.add('-A')
             self.repo_git.commit('-m', commit_msg)
+
+        except git.exc.GitCommandError as e:
+            print(e)
+        try:
             self.remote.push()
-        except git.GitCommandError:
-            pass
-        
+        except git.exc.GitCommandError as e:
+            print(e)
+            
 
 if __name__ == "__main__":
-    vault_name = 'snote-001'
+    vault_name = 'q1'
     vault_dir_path = r'C:\git_repos\test_vault_dir'
-    remote_path_template = 'https://gitee.com/danimeo/{}.git' # https://gitee.com/danimeo/snote-001.git
+    remote_path_template = "http://192.168.4.200:8000/danim/{}.git"
     user_info = { 'name': 'danimeo', 'email': 'danimeon@outlook.com' }
 
     v = Vault(vault_name, vault_dir_path, remote_path_template, user_info)
@@ -93,4 +110,4 @@ if __name__ == "__main__":
 
     # v.write('logs/med_logs.txt', '001 0832,0924 tmxt24,1 s?/7\n002 0832,2132 tmxt48,2 s?/7\n', 'log: took meds `tmxt24,1` `tmxt48,2`')
 
-    v.write('logs/med_logs.txt', '001 0832,0924 tmxt25,1 s?/7\n002 0832,2132 tmxt10,2 s?/7\n', 'med_logger: changed logs `001` `002`')
+    v.write('logs/med_logs.txt', '001 0832,0924 tmxt25,1 s?/7\n002 0832,2132 tmxt10,2 s?/7\n003 ???\n', 'med_logger: changed logs `001` `002`')
