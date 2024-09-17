@@ -4,7 +4,6 @@ import datetime
 from fractions import Fraction
 
 import os
-# os.system('python3 -m pip install pypinyin')
 import pypinyin
 from vault_mgr import Vault
 
@@ -29,9 +28,9 @@ conf = {
 data = {
     "vault_conf": {
         "vault_name": 'snote-001',
-        "vault_dir_path": 'C:\\git_repos\\test_vault_dir',
-        "remote_path_template": 'https://gitee.com/danimeo/{}.git',  # https://gitee.com/danimeo/snote-001.git
-        "user_info": {'name': 'danimeo', 'email': 'danimeon@outlook.com'}
+        "vault_dir_path": './test_vault_dir',
+        "remote_path_template": 'http://r.danim.space/danim/{}.git',  # https://gitee.com/danimeo/snote-001.git
+        "user_info": {'name': 'danim', 'email': 'danimeon@outlook.com'}
     },
     "i18n": [
         ["专注达", "Concerta"],
