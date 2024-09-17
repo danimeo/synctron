@@ -6,7 +6,6 @@ from threading import Thread
 import time
 from itertools import zip_longest
 
-# os.system('python3 -m pip install rich')
 from rich.console import Console
 from rich.table import Table
 
@@ -73,16 +72,16 @@ class DT:
         
         if self.module is not None:
             
-            table_1 = Table(title="[bold]:page_facing_up: 列表[/bold]", title_justify='left', title_style='bold', show_header=False, expand=True, show_edge=False)
-            # [table.add_column(justify="left") for i in range(self.module.conf["list_view_n_cols"])]
+            # table_1 = Table(title="[bold]:page_facing_up: 列表[/bold]", title_justify='left', title_style='bold', show_header=False, expand=True, show_edge=False)
+            # # [table.add_column(justify="left") for i in range(self.module.conf["list_view_n_cols"])]
+
+            # lst_1 = list(zip_longest(*[iter(self.module.conf["list_view_content"])] * self.module.conf["list_view_n_rows"], fillvalue=' '))
+            # if lst_1:
+            #     lst_1[-1] += (' ',) * (len(lst_1[0]) - len(lst_1[-1]))
+            #     [table_1.add_row(*s, style="white") for s in zip(*lst_1)]
 
             table_2 = Table(title="[bold]:zap: 记录[/bold]", title_justify='left', title_style='bold', show_header=False, expand=True, show_edge=False)
             # [table.add_column(justify="left") for i in range(self.module.conf["list_view_n_cols"])]
-
-            lst_1 = list(zip_longest(*[iter(self.module.conf["list_view_content"])] * self.module.conf["list_view_n_rows"], fillvalue=' '))
-            if lst_1:
-                lst_1[-1] += (' ',) * (len(lst_1[0]) - len(lst_1[-1]))
-                [table_1.add_row(*s, style="white") for s in zip(*lst_1)]
 
             lst_2 = list(zip_longest(*[iter(self.module.conf["log_view_content"])] * self.module.conf["log_view_n_rows"], fillvalue=' '))
             if lst_2:
@@ -97,8 +96,8 @@ class DT:
 
             self.console.print(content, end='')
 
-            self.console.print(table_1)
-            print('\n', sep="", end="", flush=True)
+            # self.console.print(table_1)
+            # print('\n', sep="", end="", flush=True)
             self.console.print(table_2)
             
 
