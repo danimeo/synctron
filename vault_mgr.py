@@ -1,12 +1,11 @@
 import os
-os.system("pip3 install gitpython")  # 如果没有安装gitpython, 安装
 import git
 
 
 # 添加提交用户 邮箱
 def git_user(repo_git, **user_info):
-    repo_git.config("--global", "user.name", "%s" %(user_info['name']))
-    repo_git.config("--global", "user.email", "%s" %(user_info['email']))
+    for key in user_info:
+        repo_git.config("--global", "user.{}".format(key), "%s" %(user_info[key]))
 
 
 class Vault:
@@ -26,10 +25,10 @@ class Vault:
         remote_exists = lambda repo: repo is not None and repo.__class__ is git.Repo
 
         if not local_exists():
-            repo = git.Repo.clone_from(remote_path, to_path=vault_path)
+            repo = git.Repo.clone_from(remote_path, to_path=vault_path, branch="main")
             if not remote_exists(repo):
-                os.mkdir(vault_path)
-                repo = git.Repo.init(path=vault_path)
+                os.makedirs(vault_path)
+                repo = git.Repo.init(path=vault_path, branch="main")
                 remote = repo.create_remote('origin', remote_path)
             else:
                 remote = repo.remote()
@@ -51,7 +50,7 @@ class Vault:
                 dot_git = os.path.join(vault_path, '.git')
                 if os.path.exists(dot_git):
                     os.rmdir(dot_git)
-                repo = git.Repo.init(path=vault_path)
+                repo = git.Repo.init(path=vault_path, branch="main")
 
             
             repo_git = repo.git()
@@ -74,7 +73,7 @@ class Vault:
         vault_path = os.path.join(self.vault_dir_path, self.vault_name)
         file_dir_name = os.path.join(vault_path, os.path.dirname(relative_path))
         if not os.path.exists(file_dir_name):
-            os.mkdir(file_dir_name)
+            os.mkdirs(file_dir_name)
         file_path = os.path.join(vault_path, relative_path)
         with open(file_path, 'w') as f:
             f.write(content)
